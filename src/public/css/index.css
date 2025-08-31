@@ -1,0 +1,386 @@
+/* 全体の背景色 */
+body {
+  background-color: #FFFFFF;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ヘッダー */
+.header {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  background: #FFFFFF;
+  padding: 20px 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #E0DFDE;
+}
+
+/* ヘッダーの文字 */
+.header__logo {
+  position: relative;
+  width: 100%;
+  font-family: 'Inika';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8B7969;
+  text-decoration: none;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+
+
+
+.header__nav-link {
+  color: #5C5C5C;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 16px;
+  border: 1px solid #C0BDB8;
+  border-radius: 4px;
+  background: transparent;
+  transition: all 0.3s ease;
+  font-weight: 400;
+}
+
+.header__nav-link:hover {
+  background-color: #C0BDB8;
+  color: #5C5C5C;
+}
+
+/* メインコンテンツエリア */
+.contact-form__content {
+  margin: 0 auto;
+  padding: 60px 15px;
+  max-width: 800px;
+  background: transparent;
+}
+
+.contact-form__heading {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.contact-form__heading h2 {
+  font-family: 'Inika';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 46px;
+  color: #8B7969;
+  height: 50px;
+  margin: 0;
+  text-align: center;
+  padding: 0;
+  margin-top: 50px;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* フォーム */
+.form {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  background: #FFFFFF;
+  padding: 40px;
+  /* border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); */
+}
+
+.form__group {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.form__group-title {
+  width: 200px;
+  flex-shrink: 0;
+  padding-right: 30px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #8B7969;
+  font-size: 16px;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+.form__label--item {
+  font-size: 16px;
+  color: #8B7969;
+}
+
+.form__label--required {
+  margin-left: 4px;
+  color: #E74C3C !important;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.form__group-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 入力フィールド */
+.form__input--text input,
+.form__input--textarea textarea,
+.form__input--select select {
+  padding: 14px 16px;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background: #EFEFEF;
+  color: #8B7969;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.form__input--text input:focus,
+.form__input--textarea textarea:focus,
+.form__input--select select:focus {
+  outline: none;
+  background: #F8F8F8;
+  box-shadow: 0 0 0 2px rgba(92, 92, 92, 0.1);
+}
+
+.form__input--text input::placeholder,
+.form__input--textarea textarea::placeholder {
+  color: #999;
+  font-size: 16px;
+}
+
+/* 名前入力フィールド */
+.form__input--name {
+  display: flex;
+  gap: 10px;
+}
+
+.form__input--name input {
+  flex: 1;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background: #EFEFEF;
+  color: #8B7969;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.form__input--name input:focus {
+  outline: none;
+  background: #F8F8F8;
+  box-shadow: 0 0 0 2px rgba(139, 121, 105, 0.1);
+}
+
+.form__input--name input::placeholder {
+  color: #999;
+  font-size: 16px;
+}
+
+/* 電話番号入力フィールド */
+.form__input--tel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.form__input--tel input {
+  flex: 1;
+  max-width: 150px;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background: #EFEFEF;
+  color: #8B7969;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.form__input--tel input:focus {
+  outline: none;
+  background: #F8F8F8;
+  box-shadow: 0 0 0 2px rgba(139, 121, 105, 0.1);
+}
+
+.form__input--tel input::placeholder {
+  color: #999;
+  font-size: 16px;
+}
+
+.tel-separator {
+  color: #5C5C5C;
+  font-weight: 500;
+}
+
+/* ラジオボタン */
+.form__input--radio {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.form__input--radio label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8B7969;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form__input--radio input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #8C8C8C;
+}
+
+/* テキストエリア */
+.form__input--textarea textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+/* セレクトボックス */
+.form__input--select select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+/* エラーメッセージ */
+.form__error {
+  margin-top: 8px;
+  color: #E74C3C;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* ボタン */
+.form__button {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.form__button-submit {
+  background: #82756A;
+  color: #FFFFFF;
+  border: none;
+  padding: 16px 48px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  letter-spacing: 0.5px;
+  min-width: 200px;
+}
+
+.form__button-submit:hover {
+  background: #7A7A7A;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.form__button-submit:active {
+  background: #6B6B6B;
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .header__logo {
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .contact-form__content {
+    padding: 40px 15px;
+  }
+
+  .contact-form__heading h2 {
+    font-size: 28px;
+    padding: 15px 0;
+  }
+
+  .form {
+    padding: 30px 25px;
+    margin: 0 15px;
+  }
+
+  .form__group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form__group-title {
+    width: 100%;
+    padding-right: 0;
+    margin-bottom: 12px;
+  }
+
+  .form__input--name {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form__input--tel {
+    flex-wrap: wrap;
+  }
+
+  .form__input--tel input {
+    max-width: none;
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .form__button-submit {
+    width: 100%;
+    padding: 16px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header__logo {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .contact-form__heading h2 {
+    font-size: 24px;
+    padding: 10px 0;
+  }
+
+  .form {
+    padding: 25px 20px;
+  }
+}

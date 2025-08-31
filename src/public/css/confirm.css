@@ -1,0 +1,250 @@
+/* 全体の背景色 */
+body {
+  background-color: #FFFFFF;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ヘッダー */
+.header {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  background: #FFFFFF;
+  padding: 20px 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #E0DFDE;
+}
+
+/* ヘッダーの文字 */
+.header__logo {
+  position: relative;
+  width: 100%;
+  font-family: 'Inika';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8B7969;
+  text-decoration: none;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.header__nav-link {
+  color: #5C5C5C;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 16px;
+  border: 1px solid #C0BDB8;
+  border-radius: 4px;
+  background: transparent;
+  transition: all 0.3s ease;
+  font-weight: 400;
+}
+
+.header__nav-link:hover {
+  background-color: #C0BDB8;
+  color: #5C5C5C;
+}
+
+/* メインコンテンツエリア */
+.confirm-form__content {
+  margin: 0 auto;
+  padding: 60px 15px;
+  max-width: 800px;
+  background: transparent;
+}
+
+.confirm-form__heading {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.confirm-form__heading h2 {
+  font-family: 'Inika';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 46px;
+  color: #8B7969;
+  height: 50px;
+  margin: 0;
+  text-align: center;
+  padding: 0;
+  margin-top: 50px;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* フォーム */
+.form {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  background: #FFFFFF;
+  padding: 0;
+}
+
+.form__group {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 0;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: 1px solid #E0DFDE;
+}
+
+.form__group:last-child {
+  border-bottom: none;
+}
+
+.form__group-title {
+  width: 200px;
+  flex-shrink: 0;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  color: #FFFFFF;
+  font-size: 20px;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  background: #BAA899;
+}
+
+.form__group-content {
+  flex: 1;
+  min-width: 0;
+  color: #8B7969;
+  font-size: 20px;
+  line-height: 1.6;
+  padding: 20px;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+}
+
+/* ボタン */
+.form__button {
+  margin-top: 40px;
+  text-align: center;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.form__button-submit {
+  background: #8B7969;
+  color: #FFFFFF;
+  border: none;
+  padding: 16px 48px;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  letter-spacing: 0.5px;
+  min-width: 200px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.form__button-submit:hover {
+  background: #7A7A7A;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.form__button-submit:active {
+  background: #6B6B6B;
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form__button-back {
+  background: transparent;
+  color: #8B7969;
+  border: none;
+  padding: 16px 48px;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  letter-spacing: 0.5px;
+  min-width: 200px;
+  text-decoration: underline;
+  display: inline-block;
+}
+
+.form__button-back:hover {
+  background-color: #F5F5F5;
+  color: #8B7969;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .confirm-form__content {
+    padding: 40px 15px;
+  }
+
+  .confirm-form__heading h2 {
+    font-size: 32px;
+  }
+
+  .form {
+    padding: 30px 25px;
+    margin: 0 15px;
+  }
+
+  .form__group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form__group-title {
+    width: 100%;
+    padding-right: 0;
+    margin-bottom: 12px;
+  }
+
+  .form__button {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form__button-submit,
+  .form__button-back {
+    width: 100%;
+    padding: 16px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header__logo {
+    font-size: 24px;
+  }
+
+  .confirm-form__heading h2 {
+    font-size: 28px;
+  }
+
+  .form {
+    padding: 25px 20px;
+  }
+}

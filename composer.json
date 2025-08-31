@@ -1,0 +1,6 @@
+{
+    "require": {
+        "laravel/framework": "^10.0",
+        "laravel/fortify": "^1.28"
+    }
+}

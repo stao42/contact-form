@@ -1,0 +1,44 @@
+# Laravel
+/vendor/
+/node_modules/
+/public/hot
+/public/storage
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/app/public/*
+/storage/app/.gitignore
+/storage/framework/.gitignore
+/storage/logs/.gitignore
+
+# Environment files
+.env
+.env.backup
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker/mysql/data/
+docker/mysql/data/*
+
+# Composer
+composer.phar
+
+# Testing
+.phpunit.result.cache
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
