@@ -1,20 +1,16 @@
 <div class="modal-details">
     <div class="detail-grid">
         <div class="detail-item">
-            <label>お名前</label>
-            <span>{{ $contact->name }}</span>
+            <label>姓</label>
+            <span>{{ $contact->last_name }}</span>
+        </div>
+        <div class="detail-item">
+            <label>名</label>
+            <span>{{ $contact->first_name }}</span>
         </div>
         <div class="detail-item">
             <label>性別</label>
-            <span>
-                @if($contact->gender == 'male')
-                    男性 (Male)
-                @elseif($contact->gender == 'female')
-                    女性 (Female)
-                @else
-                    その他 (Other)
-                @endif
-            </span>
+            <span>{{ $contact->gender_text }}</span>
         </div>
         <div class="detail-item">
             <label>メールアドレス</label>
@@ -34,21 +30,11 @@
         </div>
         <div class="detail-item">
             <label>お問い合わせの種類</label>
-            <span>
-                @if($contact->inquiry_type == 'general')
-                    一般的なお問い合わせ
-                @elseif($contact->inquiry_type == 'support')
-                    サポート
-                @elseif($contact->inquiry_type == 'business')
-                    ビジネス
-                @else
-                    その他
-                @endif
-            </span>
+            <span>{{ $contact->category->content ?? '不明' }}</span>
         </div>
         <div class="detail-item">
             <label>お問い合わせ内容</label>
-            <span>{{ $contact->content }}</span>
+            <span>{{ $contact->detail }}</span>
         </div>
     </div>
 

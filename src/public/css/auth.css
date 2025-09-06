@@ -1,7 +1,22 @@
+/* CSS 変数定義 */
+:root {
+  --primary-color: #8B7969;
+  --secondary-color: #D9C6B5;
+  --button-primary: #82756A;
+  --button-primary-hover: #756B5F;
+  --button-primary-active: #6B6156;
+  --background-color: #F1ECE7;
+  --white: #FFFFFF;
+  --text-placeholder: #BEB1A6;
+  --font-primary: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  --font-heading: 'Playfair Display', 'Times New Roman', serif;
+  --font-logo: 'Inika', serif;
+}
+
 /* 全体の背景色 */
 body {
-  background-color: #F1ECE7;
-  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  background-color: var(--background-color);
+  font-family: var(--font-primary);
   margin: 0;
   padding: 0;
 }
@@ -46,24 +61,25 @@ body {
 }
 
 .header__nav {
+  margin-left: auto;
   z-index: 2;
 }
 
 .header__nav-link {
-  color: #5C5C5C;
+  color: #D9C6B5;
   text-decoration: none;
   font-size: 16px;
   padding: 8px 16px;
   border: 1px solid #C0BDB8;
   border-radius: 4px;
-  background: transparent;
+  background: #F0F0F099;
   transition: all 0.3s ease;
   font-weight: 400;
 }
 
 .header__nav-link:hover {
-  background-color: #C0BDB8;
-  color: #5C5C5C;
+  background-color: #E8E8E899;
+  color: #D9C6B5;
 }
 
 /* メインコンテンツエリア */
@@ -152,8 +168,8 @@ body {
 }
 
 .form__button-submit {
-  background: #82756A;
-  color: #FFFFFF;
+  background: #D9C6B5;
+  color: #D9C6B5;
   border: none;
   padding: 16px 48px;
   font-size: 18px;
@@ -174,6 +190,24 @@ body {
 
 .form__button-submit:active {
   background: #6B6B6B;
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 共通ボタンスタイル（茶色系） */
+.form__button-primary {
+  background: var(--button-primary);
+  color: var(--white);
+}
+
+.form__button-primary:hover {
+  background: var(--button-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.form__button-primary:active {
+  background: var(--button-primary-active);
   transform: translateY(0);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }

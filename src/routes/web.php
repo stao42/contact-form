@@ -16,9 +16,20 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+// お問い合わせフォーム関連
 Route::get('/', [ContactController::class, 'index'])->name('contact.index');
-Route::post('/contacts/confirm', [ContactController::class, 'confirm']);
-Route::post('/contacts', [ContactController::class, 'store']);
+Route::post('/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
+Route::post('/contacts', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/thanks', [ContactController::class, 'thanks'])->name('contact.thanks');
+
+// 認証ルート
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
 
 // 管理画面ルート（認証が必要）
 Route::middleware(['auth'])->group(function () {
@@ -29,4 +40,4 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/contacts/{id}', [AdminController::class, 'destroy'])->name('admin.contacts.destroy');
 });
 
-// 認証ルートはFortifyが自動的に処理します
+// Fortify認証ルート（自動的に処理されます）

@@ -35,17 +35,18 @@
                         <div class="filter-group">
                             <select name="gender" class="filter-select">
                                 <option value="">性別</option>
-                                <option value="male" {{ ($searchParams['gender'] ?? '') == 'male' ? 'selected' : '' }}>男性</option>
-                                <option value="female" {{ ($searchParams['gender'] ?? '') == 'female' ? 'selected' : '' }}>女性</option>
-                                <option value="other" {{ ($searchParams['gender'] ?? '') == 'other' ? 'selected' : '' }}>その他</option>
+                                <option value="1" {{ ($searchParams['gender'] ?? '') == '1' ? 'selected' : '' }}>男性</option>
+                                <option value="2" {{ ($searchParams['gender'] ?? '') == '2' ? 'selected' : '' }}>女性</option>
+                                <option value="3" {{ ($searchParams['gender'] ?? '') == '3' ? 'selected' : '' }}>その他</option>
                             </select>
 
-                            <select name="inquiry_type" class="filter-select">
+                            <select name="category_id" class="filter-select">
                                 <option value="">お問い合わせの種類</option>
-                                <option value="general" {{ ($searchParams['inquiry_type'] ?? '') == 'general' ? 'selected' : '' }}>一般的なお問い合わせ</option>
-                                <option value="support" {{ ($searchParams['support'] ?? '') == 'support' ? 'selected' : '' }}>サポート</option>
-                                <option value="business" {{ ($searchParams['business'] ?? '') == 'business' ? 'selected' : '' }}>ビジネス</option>
-                                <option value="other" {{ ($searchParams['other'] ?? '') == 'other' ? 'selected' : '' }}>その他</option>
+                                @foreach(\App\Models\Category::all() as $category)
+                                    <option value="{{ $category->id }}" {{ ($searchParams['category_id'] ?? '') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->content }}
+                                    </option>
+                                @endforeach
                             </select>
 
                             <input type="date" name="date" value="{{ $searchParams['date'] ?? '' }}" class="filter-date">
@@ -64,14 +65,12 @@
                         <!-- 検索条件を隠しフィールドで送信 -->
                         <input type="hidden" name="search" value="{{ $searchParams['search'] ?? '' }}">
                         <input type="hidden" name="gender" value="{{ $searchParams['gender'] ?? '' }}">
-                        <input type="hidden" name="inquiry_type" value="{{ $searchParams['inquiry_type'] ?? '' }}">
+                        <input type="hidden" name="category_id" value="{{ $searchParams['category_id'] ?? '' }}">
                         <input type="hidden" name="date" value="{{ $searchParams['date'] ?? '' }}">
-                        <button type="submit" class="btn btn-export">エクスポート</button>
+                        <button type="submit" class="btn btn-export">
+                            エクスポート (全{{ $contacts->total() }}件)
+                        </button>
                     </form>
-
-                    <div class="pagination">
-                        {{ $contacts->appends($searchParams)->links() }}
-                    </div>
                 </div>
             </div>
 
@@ -90,28 +89,10 @@
                     <tbody class="table-body">
                         @foreach($contacts as $contact)
                         <tr class="table-row">
-                            <td>{{ $contact->name }}</td>
-                            <td>
-                                @if($contact->gender == 'male')
-                                    男性
-                                @elseif($contact->gender == 'female')
-                                    女性
-                                @else
-                                    その他
-                                @endif
-                            </td>
+                            <td>{{ $contact->first_name }} {{ $contact->last_name }}</td>
+                            <td>{{ $contact->gender_text }}</td>
                             <td>{{ $contact->email }}</td>
-                            <td>
-                                @if($contact->inquiry_type == 'general')
-                                    一般的なお問い合わせ
-                                @elseif($contact->inquiry_type == 'support')
-                                    サポート
-                                @elseif($contact->inquiry_type == 'business')
-                                    ビジネス
-                                @else
-                                    その他
-                                @endif
-                            </td>
+                            <td>{{ $contact->category->content ?? '不明' }}</td>
                             <td>
                                 <button class="btn btn-details" onclick="openModal({{ $contact->id }})">詳細</button>
                             </td>
@@ -120,6 +101,61 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- ページネーション -->
+            <div class="pagination-info">
+                <div class="pagination-stats">
+                    {{ $contacts->firstItem() }}〜{{ $contacts->lastItem() }}件 / 全{{ $contacts->total() }}件
+                    ({{ $contacts->currentPage() }}/{{ $contacts->lastPage() }}ページ)
+                </div>
+                <div class="pagination">
+                    @if ($contacts->hasPages())
+                        <!-- 前のページ -->
+                        @if ($contacts->onFirstPage())
+                            <span class="pagination-disabled">&laquo; 前へ</span>
+                        @else
+                            <a href="{{ $contacts->previousPageUrl() }}" class="pagination-link">&laquo; 前へ</a>
+                        @endif
+
+                        <!-- ページ番号 -->
+                        @php
+                            $currentPage = $contacts->currentPage();
+                            $lastPage = $contacts->lastPage();
+                            $startPage = max(1, $currentPage - 2);
+                            $endPage = min($lastPage, $currentPage + 2);
+                        @endphp
+
+                        @if ($startPage > 1)
+                            <a href="{{ $contacts->url(1) }}" class="pagination-link">1</a>
+                            @if ($startPage > 2)
+                                <span class="pagination-ellipsis">...</span>
+                            @endif
+                        @endif
+
+                        @for ($page = $startPage; $page <= $endPage; $page++)
+                            @if ($page == $currentPage)
+                                <span class="pagination-current">{{ $page }}</span>
+                            @else
+                                <a href="{{ $contacts->url($page) }}" class="pagination-link">{{ $page }}</a>
+                            @endif
+                        @endfor
+
+                        @if ($endPage < $lastPage)
+                            @if ($endPage < $lastPage - 1)
+                                <span class="pagination-ellipsis">...</span>
+                            @endif
+                            <a href="{{ $contacts->url($lastPage) }}" class="pagination-link">{{ $lastPage }}</a>
+                        @endif
+
+                        <!-- 次のページ -->
+                        @if ($contacts->hasMorePages())
+                            <a href="{{ $contacts->nextPageUrl() }}" class="pagination-link">次へ &raquo;</a>
+                        @else
+                            <span class="pagination-disabled">次へ &raquo;</span>
+                        @endif
+                    @endif
+                </div>
+            </div>
         </div>
     </main>
 
@@ -127,7 +163,6 @@
     <div id="contactModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>お問い合わせ詳細</h2>
                 <button class="modal-close" onclick="closeModal()">&times;</button>
             </div>
             <div class="modal-body" id="modalBody">

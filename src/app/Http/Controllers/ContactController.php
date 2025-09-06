@@ -19,6 +19,7 @@ class ContactController extends Controller
   public function confirm(ContactRequest $request)
   {
     $contact = $request->only([
+      'category_id',
       'first_name',
       'last_name',
       'gender',
@@ -28,8 +29,7 @@ class ContactController extends Controller
       'tel3',
       'address',
       'building',
-      'inquiry_type',
-      'content'
+      'detail'
     ]);
 
     // セッションにデータを保存（修正時に使用）
@@ -41,6 +41,7 @@ class ContactController extends Controller
   public function store(ContactRequest $request)
   {
     $contact = $request->only([
+      'category_id',
       'first_name',
       'last_name',
       'gender',
@@ -50,15 +51,23 @@ class ContactController extends Controller
       'tel3',
       'address',
       'building',
-      'inquiry_type',
-      'content'
+      'detail'
     ]);
 
-    // 既存のテーブル構造に合わせてデータを整形
-    $contact['name'] = $contact['first_name'] . ' ' . $contact['last_name'];
-    $contact['tel'] = $contact['tel1'] . $contact['tel2'] . $contact['tel3']; // ハイフンなし
+    // 電話番号を結合
+    $contact['tel'] = $contact['tel1'] . $contact['tel2'] . $contact['tel3'];
+    unset($contact['tel1'], $contact['tel2'], $contact['tel3']);
 
     Contact::create($contact);
+
+    // セッションから入力データをクリア
+    session()->forget('contact_form_data');
+
+    return redirect()->route('contact.thanks');
+  }
+
+  public function thanks()
+  {
     return view('thanks');
   }
 }

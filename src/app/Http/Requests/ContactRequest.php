@@ -24,17 +24,17 @@ class ContactRequest extends FormRequest
     public function rules()
     {
         return [
+            'category_id' => ['required', 'integer', 'in:1,2,3,4,5'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'gender' => ['required', 'in:male,female,other'],
+            'gender' => ['required', 'integer', 'in:1,2,3'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'tel1' => ['required', 'numeric', 'digits:3'],
             'tel2' => ['required', 'numeric', 'digits:4'],
             'tel3' => ['required', 'numeric', 'digits:4'],
             'address' => ['required', 'string', 'max:255'],
             'building' => ['nullable', 'string', 'max:255'],
-            'inquiry_type' => ['required', 'in:general,support,business,other'],
-            'content' => ['required', 'string', 'max:120'],
+            'detail' => ['required', 'string', 'max:120'],
         ];
     }
 
@@ -55,8 +55,14 @@ class ContactRequest extends FormRequest
             'last_name.string' => '名を文字列で入力してください',
             'last_name.max' => '名を255文字以下で入力してください',
 
+            // カテゴリ
+            'category_id.required' => 'お問い合わせの種類を選択してください',
+            'category_id.integer' => 'お問い合わせの種類を正しく選択してください',
+            'category_id.in' => 'お問い合わせの種類を正しく選択してください',
+
             // 性別
             'gender.required' => '性別を選択してください',
+            'gender.integer' => '性別を正しく選択してください',
             'gender.in' => '性別を正しく選択してください',
 
             // メールアドレス
@@ -87,14 +93,10 @@ class ContactRequest extends FormRequest
             'building.string' => '建物名を文字列で入力してください',
             'building.max' => '建物名を255文字以下で入力してください',
 
-            // お問い合わせの種類
-            'inquiry_type.required' => 'お問い合わせの種類を選択してください',
-            'inquiry_type.in' => 'お問い合わせの種類を正しく選択してください',
-
             // お問い合わせ内容
-            'content.required' => 'お問い合わせ内容を入力してください',
-            'content.string' => 'お問い合わせ内容を文字列で入力してください',
-            'content.max' => 'お問い合わせ内容は120文字以内で入力してください',
+            'detail.required' => 'お問い合わせ内容を入力してください',
+            'detail.string' => 'お問い合わせ内容を文字列で入力してください',
+            'detail.max' => 'お問い合わせ内容は120文字以内で入力してください',
         ];
     }
 }

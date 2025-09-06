@@ -10,7 +10,7 @@
   <div class="contact-form__heading">
     <h2>Contact</h2>
   </div>
-  <form class="form" action="contacts/confirm" method="post">
+  <form class="form" action="/confirm" method="post">
     @csrf
     <div class="form__group">
       <div class="form__group-title">
@@ -140,8 +140,8 @@
             <option value="">選択してください</option>
             <option value="general" {{ old('inquiry_type', $oldData['inquiry_type'] ?? '') == 'general' ? 'selected' : '' }}>一般的なお問い合わせ</option>
             <option value="support" {{ old('inquiry_type', $oldData['inquiry_type'] ?? '') == 'support' ? 'selected' : '' }}>サポート</option>
-            <option value="business" {{ old('inquiry_type', $oldData['business'] ?? '') == 'business' ? 'selected' : '' }}>ビジネス</option>
-            <option value="other" {{ old('inquiry_type', $oldData['other'] ?? '') == 'other' ? 'selected' : '' }}>その他</option>
+            <option value="business" {{ old('inquiry_type', $oldData['inquiry_type'] ?? '') == 'business' ? 'selected' : '' }}>ビジネス</option>
+            <option value="other" {{ old('inquiry_type', $oldData['inquiry_type'] ?? '') == 'other' ? 'selected' : '' }}>その他</option>
           </select>
         </div>
         <div class="form__error">

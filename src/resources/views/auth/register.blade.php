@@ -56,7 +56,7 @@
     </div>
 
     <div class="form__button">
-      <button type="submit" class="form__button-submit">登録</button>
+      <button type="submit" class="form__button-submit form__button-primary">登録</button>
     </div>
   </form>
 </div>

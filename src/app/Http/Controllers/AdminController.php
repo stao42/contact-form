@@ -16,7 +16,8 @@ class AdminController extends Controller
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
+                $q->where('first_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
                   ->orWhere('email', 'like', "%{$search}%");
             });
         }
@@ -26,9 +27,9 @@ class AdminController extends Controller
             $query->where('gender', $request->gender);
         }
 
-        // お問い合わせの種類フィルター
-        if ($request->filled('inquiry_type') && $request->inquiry_type !== '') {
-            $query->where('inquiry_type', $request->inquiry_type);
+        // カテゴリフィルター
+        if ($request->filled('category_id') && $request->category_id !== '') {
+            $query->where('category_id', $request->category_id);
         }
 
         // 日付フィルター
@@ -36,18 +37,18 @@ class AdminController extends Controller
             $query->whereDate('created_at', $request->date);
         }
 
-        // 7件ごとにページネーション
-        $contacts = $query->orderBy('created_at', 'desc')->paginate(7);
+        // 7件ごとにページネーション（リレーションシップも読み込み）
+        $contacts = $query->with('category')->orderBy('created_at', 'desc')->paginate(7);
 
         // 検索条件を保持
-        $searchParams = $request->only(['search', 'gender', 'inquiry_type', 'date']);
+        $searchParams = $request->only(['search', 'gender', 'category_id', 'date']);
 
         return view('admin.index', compact('contacts', 'searchParams'));
     }
 
     public function show($id)
     {
-        $contact = Contact::findOrFail($id);
+        $contact = Contact::with('category')->findOrFail($id);
 
         // モーダル用のHTMLを返す
         $html = view('admin.modal-content', compact('contact'))->render();
@@ -68,7 +69,8 @@ class AdminController extends Controller
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
+                $q->where('first_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
                   ->orWhere('email', 'like', "%{$search}%");
             });
         }
@@ -77,15 +79,24 @@ class AdminController extends Controller
             $query->where('gender', $request->gender);
         }
 
-        if ($request->filled('inquiry_type') && $request->inquiry_type !== '') {
-            $query->where('inquiry_type', $request->inquiry_type);
+        if ($request->filled('category_id') && $request->category_id !== '') {
+            $query->where('category_id', $request->category_id);
         }
 
         if ($request->filled('date')) {
             $query->whereDate('created_at', $request->date);
         }
 
-        $contacts = $query->orderBy('created_at', 'desc')->get();
+        $contacts = $query->with('category')->orderBy('created_at', 'desc')->get();
+
+        // デバッグ: エクスポートされるレコード数をログに記録
+        \Log::info('Export Debug', [
+            'search' => $request->search ?? 'none',
+            'gender' => $request->gender ?? 'none', 
+            'inquiry_type' => $request->inquiry_type ?? 'none',
+            'date' => $request->date ?? 'none',
+            'total_records' => $contacts->count()
+        ]);
 
         $filename = 'contacts_' . date('Y-m-d_H-i-s') . '.csv';
 
@@ -102,22 +113,23 @@ class AdminController extends Controller
 
             // CSVヘッダー
             fputcsv($file, [
-                'ID', 'お名前', '性別', 'メールアドレス', '電話番号',
-                '住所', '建物名', 'お問い合わせの種類', 'お問い合わせ内容', '作成日'
+                'ID', 'カテゴリ', '姓', '名', '性別', 'メールアドレス', '電話番号',
+                '住所', '建物名', 'お問い合わせ内容', '作成日'
             ]);
 
             // データ
             foreach ($contacts as $contact) {
                 fputcsv($file, [
                     $contact->id,
-                    $contact->name,
+                    $contact->category->content ?? '',
+                    $contact->last_name,
+                    $contact->first_name,
                     $this->getGenderText($contact->gender),
                     $contact->email,
                     $contact->tel,
                     $contact->address ?? '',
                     $contact->building ?? '',
-                    $this->getInquiryTypeText($contact->inquiry_type),
-                    $contact->content,
+                    $contact->detail,
                     $contact->created_at->format('Y-m-d H:i:s')
                 ]);
             }
@@ -139,23 +151,12 @@ class AdminController extends Controller
     private function getGenderText($gender)
     {
         $genders = [
-            'male' => '男性',
-            'female' => '女性',
-            'other' => 'その他'
+            1 => '男性',
+            2 => '女性',
+            3 => 'その他'
         ];
 
-        return $genders[$gender] ?? $gender;
+        return $genders[$gender] ?? '不明';
     }
 
-    private function getInquiryTypeText($type)
-    {
-        $types = [
-            'general' => '一般的なお問い合わせ',
-            'support' => 'サポート',
-            'business' => 'ビジネス',
-            'other' => 'その他'
-        ];
-
-        return $types[$type] ?? $type;
-    }
 }

@@ -4,15 +4,15 @@
 ## 環境構築
 ### Dockerビルド
 
-1. `git clone https://github.com/your-username/contact-form-test.git`
-2. `cd contact-form-test`
-3. `docker-compose up -d --build`
+1. `git clone https://github.com/stao42/contact-form.git`
+2. `cd contact-form`
+3. `docker compose up -d --build`
 
 * MySQLは、OSによって起動しない場合があるのでそれぞれのPCに合わせて `docker-compose.yml` ファイルを編集してください。
 
 ### Laravel環境構築
 
-1. `docker-compose exec php bash`
+1. `docker compose exec php bash`
 2. `composer install`
 3. `.env.example`ファイルから`.env`を作成し、以下の環境変数を設定：
    - `DB_HOST=mysql`
@@ -25,7 +25,7 @@
 
 ## 使用技術(実行環境)
 
-- PHP 8.1
+- PHP 8.2
 - Laravel 10.0
 - MySQL 8.0
 
