@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         // カテゴリーデータを挿入
         $this->call(CategorySeeder::class);
         
-        // 76件のダミーデータを作成
-        Contact::factory(76)->create();
+        // 35件のダミーデータを作成
+        Contact::factory(35)->create();
     }
 }
