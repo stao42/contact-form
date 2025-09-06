@@ -47,13 +47,13 @@ class ContactRequest extends FormRequest
     {
         return [
             // お名前
-            'first_name.required' => '姓を入力してください',
-            'first_name.string' => '姓を文字列で入力してください',
-            'first_name.max' => '姓を255文字以下で入力してください',
+            'first_name.required' => '名を入力してください',
+            'first_name.string' => '名を文字列で入力してください',
+            'first_name.max' => '名を255文字以下で入力してください',
 
-            'last_name.required' => '名を入力してください',
-            'last_name.string' => '名を文字列で入力してください',
-            'last_name.max' => '名を255文字以下で入力してください',
+            'last_name.required' => '姓を入力してください',
+            'last_name.string' => '姓を文字列で入力してください',
+            'last_name.max' => '姓を255文字以下で入力してください',
 
             // カテゴリ
             'category_id.required' => 'お問い合わせの種類を選択してください',

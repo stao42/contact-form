@@ -23,12 +23,14 @@
           <input type="text" name="first_name" placeholder="例:太郎" value="{{ old('first_name', $oldData['first_name'] ?? '') }}" />
         </div>
         <div class="form__error">
-          @error('first_name')
-          {{ $message }}
-          @enderror
-          @error('last_name')
-          {{ $message }}
-          @enderror
+          @if($errors->hasAny(['first_name', 'last_name']))
+            @if($errors->has('first_name'))
+              {{ $errors->first('first_name') }}<br>
+            @endif
+            @if($errors->has('last_name'))
+              {{ $errors->first('last_name') }}
+            @endif
+          @endif
         </div>
       </div>
     </div>
