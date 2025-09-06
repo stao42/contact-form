@@ -1,12 +1,8 @@
 <div class="modal-details">
     <div class="detail-grid">
         <div class="detail-item">
-            <label>姓</label>
-            <span>{{ $contact->last_name }}</span>
-        </div>
-        <div class="detail-item">
-            <label>名</label>
-            <span>{{ $contact->first_name }}</span>
+            <label>お名前</label>
+            <span>{{ $contact->full_name }}</span>
         </div>
         <div class="detail-item">
             <label>性別</label>

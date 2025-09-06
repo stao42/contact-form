@@ -89,7 +89,7 @@
                     <tbody class="table-body">
                         @foreach($contacts as $contact)
                         <tr class="table-row">
-                            <td>{{ $contact->first_name }} {{ $contact->last_name }}</td>
+                            <td>{{ $contact->full_name }}</td>
                             <td>{{ $contact->gender_text }}</td>
                             <td>{{ $contact->email }}</td>
                             <td>{{ $contact->category->content ?? '不明' }}</td>
