@@ -144,7 +144,7 @@ return [
     */
 
     'features' => [
-        Features::registration(),
+        // Features::registration(), // Disabled to use custom controller
         Features::resetPasswords(),
         // Features::emailVerification(),
         Features::updateProfileInformation(),
