@@ -32,7 +32,7 @@
         メールアドレス
       </div>
       <div class="form__input--text">
-        <input type="email" name="email" placeholder="例:test@example.com" value="{{ old('email') }}" />
+        <input type="text" name="email" placeholder="例:test@example.com" value="{{ old('email') }}" />
       </div>
       <div class="form__error">
         @error('email')
