@@ -16,7 +16,7 @@
       <div class="form__group-content">
         <input type="hidden" name="first_name" value="{{ $contact['first_name'] }}" />
         <input type="hidden" name="last_name" value="{{ $contact['last_name'] }}" />
-        {{ $contact['first_name'] }} {{ $contact['last_name'] }}
+        {{ $contact['last_name'] }} {{ $contact['first_name'] }}
       </div>
     </div>
 
