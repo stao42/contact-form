@@ -19,6 +19,7 @@ use App\Http\Controllers\AuthController;
 // お問い合わせフォーム関連
 Route::get('/', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
+Route::get('/confirm', fn() => redirect()->route('contact.index'))->name('contact.confirm.get');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/thanks', [ContactController::class, 'thanks'])->name('contact.thanks');
 

@@ -18,19 +18,8 @@ class ContactController extends Controller
 
   public function confirm(ContactRequest $request)
   {
-    $contact = $request->only([
-      'category_id',
-      'first_name',
-      'last_name',
-      'gender',
-      'email',
-      'tel1',
-      'tel2',
-      'tel3',
-      'address',
-      'building',
-      'detail'
-    ]);
+    $contact = $this->extractContactData($request);
+    $contact = $this->convertGenderToNumeric($contact);
 
     // セッションにデータを保存（修正時に使用）
     session(['contact_form_data' => $contact]);
@@ -40,19 +29,8 @@ class ContactController extends Controller
 
   public function store(ContactRequest $request)
   {
-    $contact = $request->only([
-      'category_id',
-      'first_name',
-      'last_name',
-      'gender',
-      'email',
-      'tel1',
-      'tel2',
-      'tel3',
-      'address',
-      'building',
-      'detail'
-    ]);
+    $contact = $this->extractContactData($request);
+    $contact = $this->convertGenderToNumeric($contact);
 
     // 電話番号を結合
     $contact['tel'] = $contact['tel1'] . $contact['tel2'] . $contact['tel3'];
@@ -69,5 +47,35 @@ class ContactController extends Controller
   public function thanks()
   {
     return view('thanks');
+  }
+
+  /**
+   * リクエストからお問い合わせデータを抽出
+   */
+  private function extractContactData($request)
+  {
+    return $request->only([
+      'category_id',
+      'first_name',
+      'last_name',
+      'gender',
+      'email',
+      'tel1',
+      'tel2',
+      'tel3',
+      'address',
+      'building',
+      'detail'
+    ]);
+  }
+
+  /**
+   * 性別を文字列から数値に変換
+   */
+  private function convertGenderToNumeric($contact)
+  {
+    $genderMap = ['male' => 1, 'female' => 2, 'other' => 3];
+    $contact['gender'] = $genderMap[$contact['gender']] ?? 1;
+    return $contact;
   }
 }

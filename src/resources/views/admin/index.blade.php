@@ -24,7 +24,7 @@
 
             <!-- 検索・フィルター -->
             <div class="search-filters">
-                <form method="GET" action="{{ route('admin.index') }}" class="search-form">
+                <form method="POST" action="{{ route('admin.contacts.search') }}" class="search-form">
                     @csrf
                     <div class="search-row">
                         <div class="search-input-group">

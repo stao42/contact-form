@@ -37,11 +37,12 @@ class AdminController extends Controller
             $query->whereDate('created_at', $request->date);
         }
 
-        // 7件ごとにページネーション（リレーションシップも読み込み）
-        $contacts = $query->with('category')->orderBy('created_at', 'desc')->paginate(7);
-
         // 検索条件を保持
         $searchParams = $request->only(['search', 'gender', 'category_id', 'date']);
+
+        // 7件ごとにページネーション（リレーションシップも読み込み、検索条件を保持）
+        $contacts = $query->with('category')->orderBy('created_at', 'desc')->paginate(7);
+        $contacts->appends($searchParams);
 
         return view('admin.index', compact('contacts', 'searchParams'));
     }
@@ -58,6 +59,8 @@ class AdminController extends Controller
 
     public function search(Request $request)
     {
+        // POSTリクエストで検索条件を受け取り、GETパラメータとして処理
+        $request->merge($request->all());
         return $this->index($request);
     }
 

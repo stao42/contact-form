@@ -24,10 +24,10 @@ class ContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => ['required', 'integer', 'in:1,2,3,4,5'],
+            'category_id' => ['required', 'integer', 'in:1,2,3,4'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'gender' => ['required', 'integer', 'in:1,2,3'],
+            'gender' => ['required', 'string', 'in:male,female,other'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'tel1' => ['required', 'numeric', 'digits:3'],
             'tel2' => ['required', 'numeric', 'digits:4'],
@@ -62,7 +62,7 @@ class ContactRequest extends FormRequest
 
             // 性別
             'gender.required' => '性別を選択してください',
-            'gender.integer' => '性別を正しく選択してください',
+            'gender.string' => '性別を正しく選択してください',
             'gender.in' => '性別を正しく選択してください',
 
             // メールアドレス

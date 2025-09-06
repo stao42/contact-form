@@ -23,10 +23,14 @@
     <div class="form__group">
       <div class="form__group-title">性別</div>
       <div class="form__group-content">
-        <input type="hidden" name="gender" value="{{ $contact['gender'] }}" />
-        @if($contact['gender'] == 'male')
+        @php
+          $genderMap = [1 => 'male', 2 => 'female', 3 => 'other'];
+          $genderValue = $genderMap[$contact['gender']] ?? 'male';
+        @endphp
+        <input type="hidden" name="gender" value="{{ $genderValue }}" />
+        @if($contact['gender'] == 1)
           男性
-        @elseif($contact['gender'] == 'female')
+        @elseif($contact['gender'] == 2)
           女性
         @else
           その他
@@ -71,12 +75,12 @@
     <div class="form__group">
       <div class="form__group-title">お問い合わせの種類</div>
       <div class="form__group-content">
-        <input type="hidden" name="inquiry_type" value="{{ $contact['inquiry_type'] }}" />
-        @if($contact['inquiry_type'] == 'general')
+        <input type="hidden" name="category_id" value="{{ $contact['category_id'] }}" />
+        @if($contact['category_id'] == 1)
           一般的なお問い合わせ
-        @elseif($contact['inquiry_type'] == 'support')
+        @elseif($contact['category_id'] == 2)
           サポート
-        @elseif($contact['inquiry_type'] == 'business')
+        @elseif($contact['category_id'] == 3)
           ビジネス
         @else
           その他
@@ -87,8 +91,8 @@
     <div class="form__group">
       <div class="form__group-title">お問い合わせ内容</div>
       <div class="form__group-content">
-        <input type="hidden" name="content" value="{{ $contact['content'] }}" />
-        {{ $contact['content'] }}
+        <input type="hidden" name="detail" value="{{ $contact['detail'] }}" />
+        {{ $contact['detail'] }}
       </div>
     </div>
 

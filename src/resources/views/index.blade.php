@@ -40,9 +40,17 @@
       </div>
       <div class="form__group-content">
         <div class="form__input--radio">
-          <label><input type="radio" name="gender" value="male" {{ old('gender', $oldData['gender'] ?? 'male') == 'male' ? 'checked' : '' }}> 男性</label>
-          <label><input type="radio" name="gender" value="female" {{ old('gender', $oldData['gender'] ?? '') == 'female' ? 'checked' : '' }}> 女性</label>
-          <label><input type="radio" name="gender" value="other" {{ old('gender', $oldData['gender'] ?? '') == 'other' ? 'checked' : '' }}> その他</label>
+          @php
+            $genderValue = old('gender', $oldData['gender'] ?? 'male');
+            // 数値の場合は文字列に変換
+            if (is_numeric($genderValue)) {
+              $genderMap = [1 => 'male', 2 => 'female', 3 => 'other'];
+              $genderValue = $genderMap[$genderValue] ?? 'male';
+            }
+          @endphp
+          <label><input type="radio" name="gender" value="male" {{ $genderValue == 'male' ? 'checked' : '' }}> 男性</label>
+          <label><input type="radio" name="gender" value="female" {{ $genderValue == 'female' ? 'checked' : '' }}> 女性</label>
+          <label><input type="radio" name="gender" value="other" {{ $genderValue == 'other' ? 'checked' : '' }}> その他</label>
         </div>
         <div class="form__error">
           @error('gender')
@@ -83,15 +91,15 @@
           <input type="tel" name="tel3" placeholder="5608" maxlength="4" value="{{ old('tel3', $oldData['tel3'] ?? '') }}" />
         </div>
         <div class="form__error">
-          @error('tel1')
-          {{ $message }}
-          @enderror
-          @error('tel2')
-          {{ $message }}
-          @enderror
-          @error('tel3')
-          {{ $message }}
-          @enderror
+          @if($errors->hasAny(['tel1', 'tel2', 'tel3']))
+            @if($errors->has('tel1'))
+              {{ $errors->first('tel1') }}
+            @elseif($errors->has('tel2'))
+              {{ $errors->first('tel2') }}
+            @elseif($errors->has('tel3'))
+              {{ $errors->first('tel3') }}
+            @endif
+          @endif
         </div>
       </div>
     </div>
@@ -136,16 +144,16 @@
       </div>
       <div class="form__group-content">
         <div class="form__input--select">
-          <select name="inquiry_type">
+          <select name="category_id">
             <option value="">選択してください</option>
-            <option value="general" {{ old('inquiry_type', $oldData['inquiry_type'] ?? '') == 'general' ? 'selected' : '' }}>一般的なお問い合わせ</option>
-            <option value="support" {{ old('inquiry_type', $oldData['inquiry_type'] ?? '') == 'support' ? 'selected' : '' }}>サポート</option>
-            <option value="business" {{ old('inquiry_type', $oldData['inquiry_type'] ?? '') == 'business' ? 'selected' : '' }}>ビジネス</option>
-            <option value="other" {{ old('inquiry_type', $oldData['inquiry_type'] ?? '') == 'other' ? 'selected' : '' }}>その他</option>
+            <option value="1" {{ old('category_id', $oldData['category_id'] ?? '') == '1' ? 'selected' : '' }}>一般的なお問い合わせ</option>
+            <option value="2" {{ old('category_id', $oldData['category_id'] ?? '') == '2' ? 'selected' : '' }}>サポート</option>
+            <option value="3" {{ old('category_id', $oldData['category_id'] ?? '') == '3' ? 'selected' : '' }}>ビジネス</option>
+            <option value="4" {{ old('category_id', $oldData['category_id'] ?? '') == '4' ? 'selected' : '' }}>その他</option>
           </select>
         </div>
         <div class="form__error">
-          @error('inquiry_type')
+          @error('category_id')
           {{ $message }}
           @enderror
         </div>
@@ -159,10 +167,10 @@
       </div>
       <div class="form__group-content">
         <div class="form__input--textarea">
-          <textarea name="content" placeholder="お問い合わせ内容をご記載ください">{{ old('content', $oldData['content'] ?? '') }}</textarea>
+          <textarea name="detail" placeholder="お問い合わせ内容をご記載ください">{{ old('detail', $oldData['detail'] ?? '') }}</textarea>
         </div>
         <div class="form__error">
-          @error('content')
+          @error('detail')
           {{ $message }}
           @enderror
         </div>
