@@ -180,28 +180,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.pagination-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.pagination-stats {
-    color: #8B7969;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
+    margin-top: 20px;
 }
 
 .pagination {
     display: flex;
     gap: 8px;
     align-items: center;
-    justify-content: center;
 }
 
 .pagination-link,
@@ -321,6 +306,10 @@ body {
         flex-direction: column;
         gap: 20px;
         align-items: stretch;
+    }
+    
+    .export-section .pagination {
+        justify-content: center;
     }
 
     .table {

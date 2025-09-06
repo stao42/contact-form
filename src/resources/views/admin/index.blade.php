@@ -71,6 +71,55 @@
                             エクスポート (全{{ $contacts->total() }}件)
                         </button>
                     </form>
+                    
+                    <!-- ページネーション -->
+                    <div class="pagination">
+                        @if ($contacts->hasPages())
+                            <!-- 前のページ -->
+                            @if ($contacts->onFirstPage())
+                                <span class="pagination-disabled">&lt;</span>
+                            @else
+                                <a href="{{ $contacts->previousPageUrl() }}" class="pagination-link">&lt;</a>
+                            @endif
+
+                            <!-- ページ番号 -->
+                            @php
+                                $currentPage = $contacts->currentPage();
+                                $lastPage = $contacts->lastPage();
+                                $startPage = max(1, $currentPage - 2);
+                                $endPage = min($lastPage, $currentPage + 2);
+                            @endphp
+
+                            @if ($startPage > 1)
+                                <a href="{{ $contacts->url(1) }}" class="pagination-link">1</a>
+                                @if ($startPage > 2)
+                                    <span class="pagination-ellipsis">...</span>
+                                @endif
+                            @endif
+
+                            @for ($page = $startPage; $page <= $endPage; $page++)
+                                @if ($page == $currentPage)
+                                    <span class="pagination-current">{{ $page }}</span>
+                                @else
+                                    <a href="{{ $contacts->url($page) }}" class="pagination-link">{{ $page }}</a>
+                                @endif
+                            @endfor
+
+                            @if ($endPage < $lastPage)
+                                @if ($endPage < $lastPage - 1)
+                                    <span class="pagination-ellipsis">...</span>
+                                @endif
+                                <a href="{{ $contacts->url($lastPage) }}" class="pagination-link">{{ $lastPage }}</a>
+                            @endif
+
+                            <!-- 次のページ -->
+                            @if ($contacts->hasMorePages())
+                                <a href="{{ $contacts->nextPageUrl() }}" class="pagination-link">&gt;</a>
+                            @else
+                                <span class="pagination-disabled">&gt;</span>
+                            @endif
+                        @endif
+                    </div>
                 </div>
             </div>
 
@@ -102,60 +151,6 @@
                 </table>
             </div>
 
-            <!-- ページネーション -->
-            <div class="pagination-info">
-                <div class="pagination-stats">
-                    {{ $contacts->firstItem() }}〜{{ $contacts->lastItem() }}件 / 全{{ $contacts->total() }}件
-                    ({{ $contacts->currentPage() }}/{{ $contacts->lastPage() }}ページ)
-                </div>
-                <div class="pagination">
-                    @if ($contacts->hasPages())
-                        <!-- 前のページ -->
-                        @if ($contacts->onFirstPage())
-                            <span class="pagination-disabled">&laquo; 前へ</span>
-                        @else
-                            <a href="{{ $contacts->previousPageUrl() }}" class="pagination-link">&laquo; 前へ</a>
-                        @endif
-
-                        <!-- ページ番号 -->
-                        @php
-                            $currentPage = $contacts->currentPage();
-                            $lastPage = $contacts->lastPage();
-                            $startPage = max(1, $currentPage - 2);
-                            $endPage = min($lastPage, $currentPage + 2);
-                        @endphp
-
-                        @if ($startPage > 1)
-                            <a href="{{ $contacts->url(1) }}" class="pagination-link">1</a>
-                            @if ($startPage > 2)
-                                <span class="pagination-ellipsis">...</span>
-                            @endif
-                        @endif
-
-                        @for ($page = $startPage; $page <= $endPage; $page++)
-                            @if ($page == $currentPage)
-                                <span class="pagination-current">{{ $page }}</span>
-                            @else
-                                <a href="{{ $contacts->url($page) }}" class="pagination-link">{{ $page }}</a>
-                            @endif
-                        @endfor
-
-                        @if ($endPage < $lastPage)
-                            @if ($endPage < $lastPage - 1)
-                                <span class="pagination-ellipsis">...</span>
-                            @endif
-                            <a href="{{ $contacts->url($lastPage) }}" class="pagination-link">{{ $lastPage }}</a>
-                        @endif
-
-                        <!-- 次のページ -->
-                        @if ($contacts->hasMorePages())
-                            <a href="{{ $contacts->nextPageUrl() }}" class="pagination-link">次へ &raquo;</a>
-                        @else
-                            <span class="pagination-disabled">次へ &raquo;</span>
-                        @endif
-                    @endif
-                </div>
-            </div>
         </div>
     </main>
 
